@@ -2,7 +2,6 @@ import { Request, Response, Router } from "express";
 import { UserValidator } from "../validators/user.validator";
 import { LoginValidator } from "../validators/login.validator";
 import { UserController } from "../util/user.factory";
-import { workoutRoutes } from "../../workout/routes/workout.routes";
 
 export const appRoutes = () => {
   const app = Router();
@@ -26,6 +25,5 @@ export const appRoutes = () => {
     (req: Request, res: Response) => controller.loginUser.login(req, res)
   );
 
-  app.use("/:id/workout", workoutRoutes());
   return app;
 };
