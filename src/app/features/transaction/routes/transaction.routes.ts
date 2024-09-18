@@ -10,6 +10,9 @@ export const transacionRoutes = () =>{
 
     const controller = new TransactionController()
 
+    app.get('/', (req: Request, res: Response) => 
+        controller.listTransaction.list(req, res))
+
     app.get('/:transactionId', (req: Request, res: Response) => 
         controller.getTransaction.get(req, res))
 

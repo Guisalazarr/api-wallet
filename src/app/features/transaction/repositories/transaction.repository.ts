@@ -1,10 +1,26 @@
 import { Database } from "../../../../main/database/database.connection";
-import { Transaction } from "../../../models/transaction.models";
+import { Transaction, TransactionType } from "../../../models/transaction.models";
 import { TransactionEntity } from "../../../shared/database/entities/transaction.entity";
 import { UserRepository } from "../../user/repositories/user.repository";
+import { ListTransactionsParams } from "../usecases/list-transactions.usecase";
 
 export class TransactionRepository{
     private repository = Database.connection.getRepository(TransactionEntity)
+
+
+    public async list (params: ListTransactionsParams){
+        const result = await this.repository.find({
+            where: {
+                idUser: params.userId,
+                type: params.type
+            },
+            relations:{
+                user: true,
+            }
+        })
+
+        return result.map((row)=> this.mapRowToModel(row))
+    }
 
     public async get(transactionId: string){
         const result = await this.repository.findOneBy({
