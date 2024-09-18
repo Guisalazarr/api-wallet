@@ -2,33 +2,55 @@ import { Transaction, TransactionType } from "../../../models/transaction.models
 import { Return } from "../../../shared/util/return.adpter";
 import { UserRepository } from "../../user/repositories/user.repository";
 import { TransactionRepository } from "../repositories/transaction.repository";
+import { sumTransactionsValues } from "../util/sum.transactions";
 
 
-export interface ListTransactionsParams{
+export interface ListTransactionsParams {
     userId: string,
-    type?:TransactionType
+    type?: TransactionType
 }
 
-export class ListTransactionUseCase{
+export class ListTransactionUseCase {
     constructor(
         private userRepository: UserRepository,
         private transactionRepository: TransactionRepository
-    ){}
+    ) { }
 
-    public async execute(params:ListTransactionsParams){
+    public async execute(params: ListTransactionsParams) {
         const user = await this.userRepository.get(params.userId)
 
-        if(!user){
+        if (!user) {
             return Return.notFound('User')
         }
 
-        const transactions = await this.transactionRepository.list({
+        let transactions = await this.transactionRepository.list({
             userId: params.userId,
             type: params.type
         })
 
-        const result = transactions.map((transaction)=> transaction.toJson())
+        let income = sumTransactionsValues(
+            transactions,
+            TransactionType.Income
+        );
 
-        return Return.success('Transactions successfully listed', result)
+        let outcome = sumTransactionsValues(
+            transactions,
+            TransactionType.Outcome
+        );
+
+
+        const result = {
+            transactions: transactions.map((transaction) => transaction.toJson()),
+            balance: {
+                income,
+                outcome,
+                total: income - outcome
+            }
+        }
+
+        return Return.success(
+            'Transactions successfully listed',
+            result,
+        )
     }
 }
