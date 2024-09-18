@@ -44,6 +44,7 @@ export class ListTransactionUseCase {
             balance: {
                 income,
                 outcome,
+                reserve: income * 0.30,
                 total: income - outcome
             }
         }
