@@ -3,11 +3,13 @@ import { CreateTransactionController } from "../controllers/create-transaction.c
 import { DeleteTransactionController } from "../controllers/delete-transactions.controller";
 import { GetTransactionController } from "../controllers/get-transaciont.controller";
 import { ListTransactionController } from "../controllers/list-transaction.controller";
+import { UpdateTransactionController } from "../controllers/update-transactions.controller";
 import { TransactionRepository } from "../repositories/transaction.repository";
 import { CreateTransactionUsecase } from "../usecases/create-transaction.usecase";
 import { DeleteTransactionUseCase } from "../usecases/delete-transactions.usecase";
 import { GetTransactionUseCase } from "../usecases/get-transaction.usecase";
 import { ListTransactionUseCase } from "../usecases/list-transactions.usecase";
+import { UpdateTransactionUseCase } from "../usecases/update-transaction.usecase";
 
 
 export class TransactionController {
@@ -50,5 +52,13 @@ export class TransactionController {
             this.transactionRepository
         )
         return new DeleteTransactionController(deleteUseCase)
+    }
+
+    public get updateTransaction() {
+        const updateUseCase = new UpdateTransactionUseCase(
+            this.userRepository,
+            this.transactionRepository
+        )
+        return new UpdateTransactionController(updateUseCase)
     }
 }

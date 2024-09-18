@@ -50,6 +50,17 @@ export class TransactionRepository {
         return result.affected ?? 0
     }
 
+    public async update(transaction: Transaction) {
+        await this.repository.update({
+            id: transaction.id
+        },
+            {
+                title: transaction.title,
+                value: transaction.value,
+                type: transaction.type
+            })
+    }
+
 
     private mapRowToModel(row: TransactionEntity) {
         const user = UserRepository.mapRowToModel(row.user)

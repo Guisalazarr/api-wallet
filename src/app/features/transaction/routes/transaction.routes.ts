@@ -17,6 +17,9 @@ export const transacionRoutes = () => {
     app.post('/', (req: Request, res: Response) =>
         controller.createTransaction.create(req, res))
 
+    app.put('/:transactionId', (req: Request, res: Response) =>
+        controller.updateTransaction.update(req, res))
+
     app.delete('/:transactionId', (req: Request, res: Response) =>
         controller.deleteTransaction.delete(req, res))
 
