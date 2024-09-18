@@ -8,9 +8,10 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { TransactionType } from '../../../models/transaction.models';
+import { UserEntity } from './user.entity';
 
 @Entity('transaction')
-export class UserEntity {
+export class TransactionEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -36,7 +37,7 @@ export class UserEntity {
     updatedAt: Date;
 
     @Column({
-        name: 'user_id',
+        name: 'id_user',
     })
     idUser: string
 
