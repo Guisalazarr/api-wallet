@@ -8,7 +8,7 @@ export class UserValidator {
         next: NextFunction
     ) {
         try {
-            const { name, email, password } = req.body;
+            const { name, email } = req.body;
 
             const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
