@@ -10,6 +10,7 @@ export interface UpdateTransactionParams {
     title?: string
     value?: number
     type?: TransactionType
+    date?: Date
 }
 
 export class UpdateTransactionUseCase {
@@ -42,6 +43,10 @@ export class UpdateTransactionUseCase {
 
         if (params.type) {
             transaction.type = params.type
+        }
+
+        if (params.date) {
+            transaction.date = params.date
         }
 
         await this.transactionRepository.update(transaction)

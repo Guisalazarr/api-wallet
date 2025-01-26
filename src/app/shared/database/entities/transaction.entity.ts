@@ -26,6 +26,9 @@ export class TransactionEntity {
     })
     type: string;
 
+    @Column()
+    date: Date;
+
     @CreateDateColumn({
         name: 'created_at',
     })
@@ -41,9 +44,9 @@ export class TransactionEntity {
     })
     idUser: string
 
-    @ManyToOne(()=> UserEntity, {
+    @ManyToOne(() => UserEntity, {
         eager: true,
     })
-    @JoinColumn({name: 'id_user'})
+    @JoinColumn({ name: 'id_user' })
     user: UserEntity
 }

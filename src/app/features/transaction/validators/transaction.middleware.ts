@@ -9,7 +9,7 @@ export class TransactionValidator {
         next: NextFunction
     ) {
         try {
-            const { title, value, type } = req.body
+            const { title, value, type, date } = req.body
 
             if (!title) {
                 return ApiResponse.notProvided(res, 'Title')
@@ -21,6 +21,11 @@ export class TransactionValidator {
 
             if (!type) {
                 return ApiResponse.notProvided(res, 'Type')
+            }
+
+
+            if (!date) {
+                return ApiResponse.notProvided(res, 'Date')
             }
 
             next()

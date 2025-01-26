@@ -8,14 +8,15 @@ export class UpdateTransactionController {
     public async update(req: Request, res: Response) {
         try {
             const { id, transactionId } = req.params
-            const { title, value, type } = req.body
+            const { title, value, type, date } = req.body
 
             const result = await this.updateUsecase.execute({
                 userId: id,
                 transactionId,
                 title,
                 value,
-                type
+                type,
+                date
             })
 
             return res.status(result.code).send(result)

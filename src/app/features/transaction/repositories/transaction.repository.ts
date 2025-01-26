@@ -38,6 +38,7 @@ export class TransactionRepository {
             title: transaction.title,
             value: transaction.value,
             type: transaction.type,
+            date: transaction.date,
             idUser: transaction.user.id
         })
 
@@ -57,7 +58,8 @@ export class TransactionRepository {
             {
                 title: transaction.title,
                 value: transaction.value,
-                type: transaction.type
+                type: transaction.type,
+                date: transaction.date
             })
     }
 
